@@ -1,9 +1,6 @@
-import com.GameInterface.CharacterData;
-import com.GameInterface.Game.Character;
-import com.GameInterface.MathLib.Vector3;
-import flash.geom.Point;
 import com.GameInterface.UtilsBase;
-import com.GameInterface.DistributedValueBase;
+import flash.geom.ColorTransform;
+import flash.geom.Point;
 
 /**
  * Utility class for TSW addons
@@ -51,4 +48,30 @@ class com.ElTorqiro.Utils
 			UtilsBase.PrintChatText( s + ": " + o[s] );
 		}
 	}
+	
+	
+	/**
+	 * Colorize movieclip using color multiply method rather than flat color
+	 * 
+	 * Courtesy of user "bummzack" at http://gamedev.stackexchange.com/a/51087
+	 * 
+	 * @param	object The object to colorizee
+	 * @param	color Color to apply
+	 */	
+	public static function Colorize(object:MovieClip, color:Number):Void {
+		// get individual color components 0-1 range
+		var r:Number = ((color >> 16) & 0xff) / 255;
+		var g:Number = ((color >> 8) & 0xff) / 255;
+		var b:Number = ((color) & 0xff) / 255;
+
+		// get the color transform and update its color multipliers
+		var ct:ColorTransform = object.transform.colorTransform;
+		ct.redMultiplier = r;
+		ct.greenMultiplier = g;
+		ct.blueMultiplier = b;
+
+		// assign transform back to sprite/movieclip
+		object.transform.colorTransform = ct;
+	}	
+	
 }
