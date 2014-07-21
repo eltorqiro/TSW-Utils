@@ -74,4 +74,80 @@ class com.ElTorqiro.Utils
 		object.transform.colorTransform = ct;
 	}	
 	
+	
+	/**
+	 * Test if a number is within the valid RGB colour range
+	 * 
+	 * @param	value Number to test for RGB validity
+	 */
+	public static function isRGB(value:Number):Boolean {
+		return value >= 0 && value <= 0xffffff;
+	}
+	
+	
+	/**
+	 * Test is an object has no properties
+	 * 
+	 * @param	object
+	 * @return	true if there is at least one property in object
+	 */
+	public static function isObjectEmpty(object:Object):Boolean {
+		var isEmpty:Boolean = true;
+		for (var n in object) { isEmpty = false; break; }
+		
+		return isEmpty;
+	}
+	
+
+	/**
+	 * Scans the _global.Enums object for an Enum with the "path" containing the find string
+	 * 
+	 * @param	find	string to find in the entire Enum path, leave empty to print the entire nested list
+	 */
+	public static function FindGlobalEnum(find:String) {
+		
+		if ( find == "" ) find = undefined;
+		
+		var enumPaths:Array = [ "" ];
+		var enums:Array = [ _global.Enums ];
+		
+		var theEnum = _global.Enums;
+		var enumPath = "";
+		
+		var foundCount:Number = 0;
+		
+		var findText:String = find != undefined ? find : "[all names]";
+		UtilsBase.PrintChatText('<br />');
+		UtilsBase.PrintChatText('In _global.Enums, matching <font color="#00ccff">' + findText + "</font><br /><br />");
+		
+		while ( enums.length ) {
+		
+			for ( var s:String in theEnum ) {
+				
+				// push onto stack if it is another Enum blob node
+				if ( theEnum[s] instanceof Object ) {
+					enums.push( theEnum[s] );
+					enumPaths.push( enumPath + "." + s );
+				}
+				
+				// handle value node
+				else {
+					var varName = enumPath + "." + s;
+					// case-insensitive find
+					if ( find == undefined || varName.toLowerCase().indexOf( find.toLowerCase() ) > -1 ) {
+						foundCount++;
+						UtilsBase.PrintChatText( varName + ": " + theEnum[s] );
+					}
+					
+				}
+			}
+			
+			theEnum = enums.pop();
+			enumPath = enumPaths.pop();
+		}
+
+		UtilsBase.PrintChatText("<br />");		
+		UtilsBase.PrintChatText('Found <font color="#00ff00">' + foundCount + '</font> matching <font color="#00ccff">' + findText + '</font>');
+	}
+
 }
