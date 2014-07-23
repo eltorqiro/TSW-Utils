@@ -5,7 +5,7 @@ import flash.geom.Point;
 /**
  * Utility class for TSW addons
  */
-class com.ElTorqiro.Utils
+class com.ElTorqiro.AddonUtils.AddonUtils
 {
 	// cannot be instantiated, static class only
 	private function Utils() {}
