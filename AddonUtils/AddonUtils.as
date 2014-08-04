@@ -5,7 +5,7 @@ import flash.geom.Point;
 /**
  * Utility class for TSW addons
  */
-class com.ElTorqiro.AddonUtils.AddonUtils
+class <YOUR_NAMESPACE>.AddonUtils.AddonUtils
 {
 	// cannot be instantiated, static class only
 	private function Utils() {}
@@ -150,4 +150,34 @@ class com.ElTorqiro.AddonUtils.AddonUtils
 		UtilsBase.PrintChatText('Found <font color="#00ff00">' + foundCount + '</font> matching <font color="#00ccff">' + findText + '</font>');
 	}
 
+	/**
+	 * Provides a copy of a string, in reverse character order.
+	 * 
+	 * @param	string	String to reverse.
+	 * @return	The string in reverse character order.
+	 */
+	public static function ReverseString(string:String):String {
+		var charArray:Array = string.split();
+		charArray.reverse();
+		return charArray.join();
+	}
+	
+	
+	/**
+	 * Provides a copy of a string, with all HTML removed from it
+	 * 
+	 * @param	string	String to remove HTML from
+	 * @return	The string with HTML removed
+	 */
+	public static function StripHTML(htmlText:String):String {
+		if ( !(htmlText.length > 0) ) return htmlText;
+		
+		var istart:Number;
+		var plainText:String = htmlText;
+		while ((istart = plainText.indexOf("<")) != -1) {
+			plainText = plainText.split(plainText.substr(istart, plainText.indexOf(">") - istart + 1)).join("");
+		}
+
+		return plainText;
+	}
 }
