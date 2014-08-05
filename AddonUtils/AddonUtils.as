@@ -252,4 +252,32 @@ class <YOUR_NAMESPACE>.AddonUtils.AddonUtils
 		mc.lineTo(topLeftCorner+x, y);
 	}
 
+	
+	/**
+	 * Extracts the first numeric sequence (including decimal point) from a string and returns it as a number
+	 * 
+	 * Only works with digits 0-9 and . so does not support hex or other base values
+	 * 
+	 * @param	string	The string to find a number inside
+	 * @return	The numeric value found, or undefined if no number found
+	 */
+	public static function NumberFromString(string:String):Number {
+		
+		var capturing:Boolean = false;
+		var numArray:Array = [];
+		
+		var length:Number = string.length;
+		for ( var i:Number = 0; i < length; i++ ) {
+			
+			var charCode:Number = string.charCodeAt(i);
+			if ( (charCode >= 48 && charCode <= 57) || charCode == 46 ) {
+				capturing = true;
+				numArray.push( string.charAt(i) );
+			}
+			
+			else if ( capturing ) break;
+		}
+		UtilsBase.PrintChatText('arr:' + numArray.join(''));
+		return numArray.length == 0 ? undefined : Number(numArray.join(''));
+	}
 }
