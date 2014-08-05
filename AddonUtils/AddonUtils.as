@@ -277,7 +277,6 @@ class <YOUR_NAMESPACE>.AddonUtils.AddonUtils
 			
 			else if ( capturing ) break;
 		}
-		UtilsBase.PrintChatText('arr:' + numArray.join(''));
 		return numArray.length == 0 ? undefined : Number(numArray.join(''));
 	}
 }
