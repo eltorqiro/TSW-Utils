@@ -192,5 +192,64 @@ class <YOUR_NAMESPACE>.AddonUtils.AddonUtils
 		var firstLetter = word.substring(1, 0);
 		var restOfWord = word.substring(1);
 		return ( firstLetter.toUpperCase() + restOfWord.toLowerCase() );
-	}	
+	}
+	
+
+	/**
+	 * Converts a numeric color value into a HTML compatible hex string, excluding the leading #
+	 * 
+	 * @param	color	Numeric value representing an RGB color
+	 * @return	color converted into a hex string, e.g. "FF88AA", or an empty string if a non-valid RGB value is passed
+	 */
+	public static function colorToHex(color:Number):String {
+		if ( !isRGB(color) ) return '';
+		
+		var colArr:Array = color.toString(16).toUpperCase().split('');
+		var numChars:Number = colArr.length;
+		for ( var a:Number = 0; a < (6 - numChars); a++ ) {
+			colArr.unshift("0");
+		}
+		return ( colArr.join('') );
+	}
+
+	
+	/**
+	 * Draws a rectangle on an existing movieclip, with options for rounded corners
+	 * 
+	 * Does not process any fill or line on the draw, begin those on the movieclip prior to calling this function
+	 * 
+	 * @param	mc					MovieClip to draw onto
+	 * @param	x					x coordinate within the movieclip to start the rectangle
+	 * @param	y					y coordinate within the movieclip to start the rectangle
+	 * @param	w					width of the coordinate, which will be in movieclip-local scale, not pixel
+	 * @param	h					height of the coordinate, which will be in movieclip-local scale, not pixel
+	 * @param	topLeftCorner		radius of the top left corner, leave zero to not have a curved corner
+	 * @param	topRightCorner		radius of the top right corner, leave zero to not have a curved corner
+	 * @param	bottomRightCorner	radius of the bottom right corner, leave zero to not have a curved corner
+	 * @param	bottomLeftCorner	radius of the bottom left corner, leave zero to not have a curved corner
+	 */
+	public static function DrawRectangle(mc:MovieClip, x:Number, y:Number, w:Number, h:Number, topLeftCorner:Number, topRightCorner:Number, bottomRightCorner:Number, bottomLeftCorner:Number):Void {
+
+		if ( mc == undefined || !(mc instanceof MovieClip) ) return;
+		
+		if ( topLeftCorner == undefined ) topLeftCorner = 0;
+		if ( topRightCorner == undefined ) topRightCorner = 0;
+		if ( bottomRightCorner == undefined ) bottomRightCorner = 0;
+		if ( bottomLeftCorner == undefined ) bottomLeftCorner = 0;
+		
+		mc.moveTo(topLeftCorner+x, y);
+		mc.lineTo(w - topRightCorner, y);
+		mc.curveTo(w, y, w, topRightCorner+y);
+		mc.lineTo(w, topRightCorner+y);
+		mc.lineTo(w, h - bottomRightCorner);
+		mc.curveTo(w, h, w - bottomRightCorner, h);
+		mc.lineTo(w - bottomRightCorner, h);
+		mc.lineTo( bottomLeftCorner+x, h);
+		mc.curveTo(x, h, x, h - bottomLeftCorner);
+		mc.lineTo(x, h - bottomLeftCorner);
+		mc.lineTo(x, topLeftCorner+y);
+		mc.curveTo(x, y, topLeftCorner+x, y);
+		mc.lineTo(topLeftCorner+x, y);
+	}
+
 }
