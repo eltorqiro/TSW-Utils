@@ -1,13 +1,23 @@
 TSW-AddonUtils
 ==============
 Utility classes for use in The Secret World addons
+  
+  
+When using any of these classes, you must ensure namespace isolation within each of your projects.  This is done by copying the AddonUtils folder into your application's source tree, and then doing a _find & replace_ operation on it to replace the text "__ProjectNamespace__" with your project's namespace.
 
-
-<YOUR_NAMESPACE>.AddonUtils.AddonUtils
---------------------------------------
-Static class containing handy functions used as part of the development workflow and also common functions used in many addons.  To avoid namespace collisions when this library is used across multiple modules in TSW, this class must be placed under your module's namespace.  Copy the AddonUtils directory into your namespace directory and add your path to the class definition.
+For example, if you copied AddonUtils into com/mydomain/project/AddonUtils then find & replace "__ProjectNamespace__" with "com.mydomain.project"
+  
+  
+.AddonUtils.*
+-------------
+Classes containing both boilerplate and utility functionallity used as part of the development workflow for common addon internals such as user preferences, VTIO registration, etc.
    
    
-mx.utils.Delegate
------------------
-A more strictly typed version of the Delegate class, to satisfy strict compilers.  Will be superceded at runtime by previously loaded instance of mx.utils.Delegate, so do not add any features to this class.
+.AddonUtils.GuiEditMode.*
+-------------------------
+Provides a common interface for managing clips under Gui Edit Mode (gem), without having to place significant gem handling or awareness into project components.
+  
+  
+.AddonUtils.UI.*
+----------------
+User Interface components covering a range of common UI elements.  Includes a PanelBuilder class, which enables configuration interfaces to be built dynamically at runtime using a definition object, rather than code.
