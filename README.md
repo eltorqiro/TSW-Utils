@@ -3,9 +3,9 @@ TSW-AddonUtils
 Utility classes for use in The Secret World addons
   
   
-When using any of these classes, you must ensure namespace isolation within each of your projects.  This is done by copying the AddonUtils folder into your application's source tree, and then doing a _find & replace_ operation on it to replace the text "__ProjectNamespace__" with your project's namespace.
+When using any of these classes, you must ensure namespace isolation within each of your projects.  This is done by copying the AddonUtils folder into your application's source tree, and then doing a _find & replace_ operation on it to replace the text `__ProjectNamespace__` with your project's namespace.
 
-For example, if you copied AddonUtils into com/mydomain/project/AddonUtils then find & replace "__ProjectNamespace__" with "com.mydomain.project"
+For example, if you copied AddonUtils into com/mydomain/project/AddonUtils then find & replace `__ProjectNamespace__` with `com.mydomain.project`
   
   
 .AddonUtils.*
